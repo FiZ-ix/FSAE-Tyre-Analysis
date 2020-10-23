@@ -1,6 +1,6 @@
 '''
 A.Q. Snyder
-TFR Tire Data Analysis
+TFR Tyre Data Analysis
 this code is written to analyze the TTC FSAE tire data
 the code is written in a linear, easy to read format catered towards an engineering mindset
     rather than efficient software
