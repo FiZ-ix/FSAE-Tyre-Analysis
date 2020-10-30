@@ -37,10 +37,22 @@ verticalLoad = np.array(verticalLoad)
 lateralForce = np.array(lateralForce)
 
 
+Z1 = np.where(np.logical_and(verticalLoad>= 0, verticalLoad<=320))
+Z2 = np.where(np.logical_and(verticalLoad>= 320, verticalLoad<=550))
+Z3 = np.where(np.logical_and(verticalLoad>= 550, verticalLoad<=750))
+Z4 = np.where(np.logical_and(verticalLoad>= 750, verticalLoad<=950))
+Z5 = np.where(np.logical_and(verticalLoad>= 980, verticalLoad<=1200))
+
+
 fig = plt.figure(figsize = (10,7))
 ax = plt.axes(projection="3d")
 
-ax.scatter3D(slipAngle,verticalLoad,lateralForce,marker = 'x',linewidths=0.08,color = 'red')
+ax.scatter3D(slipAngle[Z1],verticalLoad[Z1],lateralForce[Z1],marker = 'x',linewidths=0.08,color = 'midnightblue')
+ax.scatter3D(slipAngle[Z2],verticalLoad[Z2],lateralForce[Z2],marker = 'x',linewidths=0.08,color = 'mediumblue')
+ax.scatter3D(slipAngle[Z3],verticalLoad[Z3],lateralForce[Z3],marker = 'x',linewidths=0.08,color = 'slateblue')
+ax.scatter3D(slipAngle[Z4],verticalLoad[Z4],lateralForce[Z4],marker = 'x',linewidths=0.08,color = 'mediumpurple')
+ax.scatter3D(slipAngle[Z5],verticalLoad[Z5],lateralForce[Z5],marker = 'x',linewidths=0.08,color = 'plum')
+
 ax.set_xlabel('Slip Angle')
 ax.set_ylabel('Vertical Load')
 ax.set_zlabel('Lateral Force')
