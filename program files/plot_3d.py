@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 
 run_input = input("Enter the run number you want to study: ") # example of input B1965run2
-data = pd.read_excel ('data\RunData_cornering_ASCII_SI_10in_round8 excel/'+(run_input)+(".xlsx"),skiprows=2)
+data = pd.read_excel (r'C:\Users\Fizics\Desktop\TTC\data\RunData_cornering_ASCII_SI_10in_round8 excel/'+(run_input)+(".xlsx"),skiprows=2)
 df = pd.DataFrame(data)
 
 df = df.drop(df.index[0:5000])
