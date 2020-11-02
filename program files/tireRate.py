@@ -19,14 +19,14 @@ described above with respect to the element taken for loads.
 
 #_______________________________________________________________________________________________________________________
 
-run_input = input("Enter the run number you want to study: ") # example of input B1965run2
+#run_input = input("Enter the run number you want to study: ") # example of input B1965run2
+run_input = 'B1965run2'
 data = pd.read_excel (r'C:\Users\Fizics\Desktop\TTC\data\RunData_cornering_ASCII_SI_10in_round8 excel/'+(run_input)+(".xlsx"),skiprows=2)
 df = pd.DataFrame(data)
 
 #print(data.head())
 #print(data.tail())
 
-df = df.drop(df.index[0:5000])
 
 pressure=df["P"] # kPa
 camber=df["IA"] # deg
@@ -48,49 +48,52 @@ loadedRadius = np.array(loadedRadius)
 #-----------------------------------------------------------------------------------------------------------------------
 
 # data points in the range of 10, 12, and 14 psi
-pressure_10psi = np.where(np.logical_and(pressure>=68.94757-1, pressure<=68.94757+1))
-pressure_12psi = np.where(np.logical_and(pressure>= 82.73709-1, pressure<=82.7370+1))
-pressure_14psi = np.where(np.logical_and(pressure>= 96.5266-1, pressure<=96.5266+1))
+# ref plot_2d splash chart for region divisions
+
+pressure_10psi = np.where(np.logical_and(pressure>=np.min(pressure[2000:4000]), pressure<=np.max(pressure[2000:4000])))
+pressure_12psi = np.where(np.logical_and(pressure>=np.min(pressure[0:2000]), pressure<=np.max(pressure[0:2000])))
+pressure_14psi = np.where(np.logical_and(pressure<=np.min(pressure[4000:6000]), pressure<=np.max(pressure[4000:6000])))
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 # pressure regions at small slip angles
-smallSA_10psi = np.where(np.logical_and(slipAngle[pressure_10psi]>=-0.5, slipAngle[pressure_10psi]<=0.5))
-smallSA_12psi = np.where(np.logical_and(slipAngle[pressure_12psi]>=-0.5, slipAngle[pressure_12psi]<=0.5))
-smallSA_14psi = np.where(np.logical_and(slipAngle[pressure_14psi]>=-0.5, slipAngle[pressure_14psi]<=0.5))
+smallSA_10psi = np.where(np.logical_and(slipAngle[pressure_10psi]>=-.1, slipAngle[pressure_10psi]<=.1))
+smallSA_12psi = np.where(np.logical_and(slipAngle[pressure_12psi]>=-.1, slipAngle[pressure_12psi]<=.1))
+smallSA_14psi = np.where(np.logical_and(slipAngle[pressure_14psi]>=-.1, slipAngle[pressure_14psi]<=.1))
 
 # pressure regions at small cambers
-smallC_10psi = np.where(np.logical_and(camber[pressure_10psi]>=-0.5, camber[pressure_10psi]<=0.5))
-smallC_12psi = np.where(np.logical_and(camber[pressure_12psi]>=-0.5, camber[pressure_12psi]<=0.5))
-smallC_14psi = np.where(np.logical_and(camber[pressure_14psi]>=-0.5, camber[pressure_14psi]<=0.5))
+smallC_10psi = np.where(np.logical_and(camber[pressure_10psi]>=-.5, camber[pressure_10psi]<=.5))
+smallC_12psi = np.where(np.logical_and(camber[pressure_12psi]>=-.5, camber[pressure_12psi]<=.5))
+smallC_14psi = np.where(np.logical_and(camber[pressure_14psi]>=-.5, camber[pressure_14psi]<=.5))
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Fz loads within both small slip angles and pressure ranges
+
 load_10psi_slipAngle = verticalLoad[smallSA_10psi]
 max10psi_slipAngle = np.max(load_10psi_slipAngle)
-element_max10psi_slipAngle = np.where(load_10psi_slipAngle == np.max(load_10psi_slipAngle))
+element_max10psi_slipAngle = np.argmax(load_10psi_slipAngle)
 
 min10psi_slipAngle = np.min(load_10psi_slipAngle)
-element_min10psi_slipAngle = np.where(load_10psi_slipAngle == np.min(load_10psi_slipAngle))
+element_min10psi_slipAngle = np.argmin(load_10psi_slipAngle)
 deltaLoad10psi_slipAngle = max10psi_slipAngle - min10psi_slipAngle
 
 
 load_12psi_slipAngle = verticalLoad[smallSA_12psi]
 max12psi_slipAngle = np.max(load_12psi_slipAngle)
-element_max12psi_slipAngle = np.where(load_12psi_slipAngle == np.max(load_12psi_slipAngle))
+element_max12psi_slipAngle = np.argmax(load_12psi_slipAngle)
 
 min12psi_slipAngle = np.min(load_12psi_slipAngle)
-element_min12psi_slipAngle = np.where(load_12psi_slipAngle == np.min(load_12psi_slipAngle))
+element_min12psi_slipAngle = np.argmin(load_12psi_slipAngle)
 deltaLoad12psi_slipAngle = max12psi_slipAngle - min12psi_slipAngle
 
 
 load_14psi_slipAngle = verticalLoad[smallSA_14psi]
 max14psi_slipAngle = np.max(load_14psi_slipAngle)
-element_max14psi_slipAngle = np.where(load_14psi_slipAngle == np.max(load_14psi_slipAngle))
+element_max14psi_slipAngle = np.argmax(load_14psi_slipAngle)
 
 min14psi_slipAngle = np.min(load_14psi_slipAngle)
-element_min14psi_slipAngle = np.where(load_14psi_slipAngle == np.min(load_14psi_slipAngle))
+element_min14psi_slipAngle = np.argmin(load_14psi_slipAngle)
 deltaLoad14psi_slipAngle = max14psi_slipAngle - min14psi_slipAngle
 
 
@@ -98,28 +101,29 @@ deltaLoad14psi_slipAngle = max14psi_slipAngle - min14psi_slipAngle
 # Fz loads within both small camber and pressure ranges
 load_10psi_camber = verticalLoad[smallC_10psi]
 max10psi_camber = np.max(load_10psi_camber)
-element_max10psi_camber = np.where(load_10psi_camber == np.max(load_10psi_camber))
+#element_max10psi_camber = np.where(load_10psi_camber == np.max(load_10psi_camber)) # another method
+element_max10psi_camber = np.argmax(load_10psi_camber)
 
 min10psi_camber = np.min(load_10psi_camber)
-element_min10psi_camber = np.where(load_10psi_camber == np.min(load_10psi_camber))
+element_min10psi_camber = np.argmin(load_10psi_camber)
 deltaLoad10psi_camber = max10psi_camber - min10psi_camber
 
 
 load_12psi_camber = verticalLoad[smallC_12psi]
 max12psi_camber = np.max(load_12psi_camber)
-element_max12psi_camber = np.where(load_12psi_camber == np.max(load_12psi_camber))
+element_max12psi_camber = np.argmax(load_12psi_camber)
 
 min12psi_camber = np.min(load_12psi_camber)
-element_min12psi_camber = np.where(load_12psi_camber == np.min(load_12psi_camber))
+element_min12psi_camber = np.argmin(load_12psi_camber)
 deltaLoad12psi_camber = max12psi_camber - min12psi_camber
 
 
 load_14psi_camber = verticalLoad[smallC_14psi]
 max14psi_camber = np.max(load_14psi_camber)
-element_max14psi_camber = np.where(load_14psi_camber == np.max(load_14psi_camber))
+element_max14psi_camber = np.argmax(load_14psi_camber)
 
 min14psi_camber = np.min(load_14psi_camber)
-element_min14psi_camber = np.where(load_14psi_camber == np.min(load_14psi_camber))
+element_min14psi_camber = np.argmin(load_14psi_camber)
 deltaLoad14psi_camber = max14psi_camber - min14psi_camber
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -136,7 +140,7 @@ deltaDeflection14psi_slipAngle = compressedRadius_14psi_slipAngle[element_min14p
 
 
 
-# deflected tire radius at both small slip cambers and pressure ranges
+# deflected tire radius at both small cambers and pressure ranges
 compressedRadius_10psi_camber = loadedRadius[smallC_10psi]
 deltaDeflection10psi_camber = compressedRadius_10psi_camber[element_min10psi_camber] - compressedRadius_10psi_camber[element_max10psi_camber]
 
