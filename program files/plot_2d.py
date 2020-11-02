@@ -32,12 +32,13 @@ The original format of this code took run8 data. If you want to add other data, 
 structure. ~$PROJECT_PATH...program files\data\.....
 '''
 
-run_input = input("Enter the run number you want to study: ") # example of input B1965run2
+#run_input = input("Enter the run number you want to study: ") # example of input B1965run2
+run_input = 'B1965run2'
 data = pd.read_excel (r'C:\Users\Fizics\Desktop\TTC\data\RunData_cornering_ASCII_SI_10in_round8 excel/'+(run_input)+(".xlsx"),skiprows=2)
 df = pd.DataFrame(data)
 
-print(data.head())
-print(data.tail())
+#print(data.head())
+#print(data.tail())
 
 
 '''
@@ -295,10 +296,11 @@ F_magic = Dp * np.sin(theta)  #magic formula
 
 #begin poly fitting
 fig7 = plt.figure()
+
 d = 10
 
-x1 = slipAngle[Z1]
-y1 = lateralForce[Z1]
+x1 = np.flip(np.sort(slipAngle[Z1]))
+y1 = np.sort(lateralForce[Z1])
 curve1 = np.polyfit(x1,y1,d)
 poly1 = np.poly1d(curve1)
 
@@ -309,8 +311,8 @@ plt.legend(facecolor='grey', title='@Fz=', labelcolor='w', fontsize='small', fan
 
 
 
-x2 = slipAngle[Z2]
-y2 = lateralForce[Z2]
+x2 = np.flip(np.sort(slipAngle[Z2]))
+y2 = np.sort(lateralForce[Z2])
 curve2 = np.polyfit(x2,y2,d)
 poly2 = np.poly1d(curve2)
 
@@ -321,8 +323,8 @@ plt.legend(facecolor='grey', title='@Fz=', labelcolor='w', fontsize='small', fan
 
 
 
-x3 = slipAngle[Z3]
-y3 = lateralForce[Z3]
+x3 = np.flip(np.sort(slipAngle[Z3]))
+y3 = np.sort(lateralForce[Z3])
 curve3 = np.polyfit(x3,y3,d)
 poly3 = np.poly1d(curve3)
 
@@ -333,8 +335,8 @@ plt.legend(facecolor='grey', title='@Fz=', labelcolor='w', fontsize='small', fan
 
 
 
-x4 = slipAngle[Z4]
-y4 = lateralForce[Z4]
+x4 = np.flip(np.sort(slipAngle[Z4]))
+y4 = np.sort(lateralForce[Z4])
 curve4 = np.polyfit(x4,y4,d)
 poly4 = np.poly1d(curve4)
 
@@ -345,8 +347,8 @@ plt.legend(facecolor='grey', title='@Fz=', labelcolor='w', fontsize='small', fan
 
 
 
-x5 = slipAngle[Z5]
-y5 = lateralForce[Z5]
+x5 = np.flip(np.sort(slipAngle[Z5]))
+y5 = np.sort(lateralForce[Z5])
 curve5 = np.polyfit(x5,y5,d)
 poly5 = np.poly1d(curve5)
 
