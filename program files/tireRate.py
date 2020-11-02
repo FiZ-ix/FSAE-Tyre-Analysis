@@ -38,9 +38,14 @@ verticalLoad = df["FZ"] * -1  # N
 slipAngle = np.array(slipAngle)
 camber = np.array(camber)
 verticalLoad = np.array(verticalLoad)
-camber = np.array(camber)
 pressure = np.array(pressure)
 loadedRadius = np.array(loadedRadius)
+
+Z1 = np.where(np.logical_and(verticalLoad>= 0, verticalLoad<=320))
+Z2 = np.where(np.logical_and(verticalLoad>= 320, verticalLoad<=550))
+Z3 = np.where(np.logical_and(verticalLoad>= 550, verticalLoad<=750))
+Z4 = np.where(np.logical_and(verticalLoad>= 750, verticalLoad<=950))
+Z5 = np.where(np.logical_and(verticalLoad>= 980, verticalLoad<=1200))
 
 # 10 psi = 68.94757 kPa
 # 12 psi = 82.73709 kPa
@@ -153,7 +158,7 @@ deltaDeflection14psi_camber = compressedRadius_14psi_camber[element_min14psi_cam
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Tire rates at
+# Average Tire rates at
 
 tireRate_10psi_slipAngle = (deltaLoad10psi_slipAngle / deltaDeflection10psi_slipAngle)
 tireRate_12psi_slipAngle = (deltaLoad12psi_slipAngle / deltaDeflection12psi_slipAngle)
@@ -165,13 +170,13 @@ tireRate_12psi_camber = (deltaLoad12psi_camber / deltaDeflection12psi_camber)
 tireRate_14psi_camber = (deltaLoad14psi_camber / deltaDeflection14psi_camber)
 
 
-#print(str(tireRate_10psi_slipAngle * 0.5710147) + ' lb/in at 10psi, and small slip angle')
-#print(str(tireRate_12psi_slipAngle * 0.5710147) + ' lb/in at 12psi, and small slip angle')
-#print(str(tireRate_14psi_slipAngle * 0.5710147) + ' lb/in at 14psi, and small slip angle\n')
+print(str(tireRate_10psi_slipAngle * 0.5710147) + ' lb/in at 10psi, and small slip angle')
+print(str(tireRate_12psi_slipAngle * 0.5710147) + ' lb/in at 12psi, and small slip angle')
+print(str(tireRate_14psi_slipAngle * 0.5710147) + ' lb/in at 14psi, and small slip angle\n')
 
-#print(str(tireRate_10psi_camber * 0.5710147) + ' lb/in at 10psi, and small camber')
-#print(str(tireRate_12psi_camber * 0.5710147) + ' lb/in at 12psi, and small camber')
-#print(str(tireRate_14psi_camber * 0.5710147) + ' lb/in at 14psi, and small camber\n')
+print(str(tireRate_10psi_camber * 0.5710147) + ' lb/in at 10psi, and small camber')
+print(str(tireRate_12psi_camber * 0.5710147) + ' lb/in at 12psi, and small camber')
+print(str(tireRate_14psi_camber * 0.5710147) + ' lb/in at 14psi, and small camber\n')
 
 #  N to lb = 0.22480894244319
 #  cm to in = 0.3937008
@@ -189,7 +194,15 @@ tireRate_14psi_camber = (deltaLoad14psi_camber / deltaDeflection14psi_camber)
 
 
 '''
-this graph should sum up what I am trying to say. The blue line is the vertical loads in the 10 psi range of data.
+
+# If you want instantaneous.....then
+
+plt.plot(np.linspace(0,len(smallSA_10psi[0]),len(smallSA_10psi[0])),verticalLoad[smallSA_10psi])
+plt.plot(np.linspace(0,len(smallSA_10psi[0]),len(smallSA_10psi[0])),loadedRadius[smallSA_10psi]*8)
+# multiplying by 8 is just to show that the line is not flat....8 means nothing, stop staring at it
+plt.show()
+
+the graph above should sum up what I am trying to say. The blue line is the vertical loads in the 10 psi range of data.
 The orange line is the loaded radii, both plotted against # elements in the x direction. So the tire rate is the
 quotient of the two points on any given vertical line of this graph. 
 
