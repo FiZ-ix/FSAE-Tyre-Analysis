@@ -165,16 +165,13 @@ tireRate_12psi_camber = (deltaLoad12psi_camber / deltaDeflection12psi_camber)
 tireRate_14psi_camber = (deltaLoad14psi_camber / deltaDeflection14psi_camber)
 
 
-print(str(tireRate_10psi_slipAngle * 0.5710147) + ' lb/in at 10psi, and small slip angle')
-print(str(tireRate_12psi_slipAngle * 0.5710147) + ' lb/in at 12psi, and small slip angle')
-print(str(tireRate_14psi_slipAngle * 0.5710147) + ' lb/in at 14psi, and small slip angle\n')
+#print(str(tireRate_10psi_slipAngle * 0.5710147) + ' lb/in at 10psi, and small slip angle')
+#print(str(tireRate_12psi_slipAngle * 0.5710147) + ' lb/in at 12psi, and small slip angle')
+#print(str(tireRate_14psi_slipAngle * 0.5710147) + ' lb/in at 14psi, and small slip angle\n')
 
-print(str(tireRate_10psi_camber * 0.5710147) + ' lb/in at 10psi, and small camber')
-print(str(tireRate_12psi_camber * 0.5710147) + ' lb/in at 12psi, and small camber')
-print(str(tireRate_14psi_camber * 0.5710147) + ' lb/in at 14psi, and small camber\n')
-
-print()
-print()
+#print(str(tireRate_10psi_camber * 0.5710147) + ' lb/in at 10psi, and small camber')
+#print(str(tireRate_12psi_camber * 0.5710147) + ' lb/in at 12psi, and small camber')
+#print(str(tireRate_14psi_camber * 0.5710147) + ' lb/in at 14psi, and small camber\n')
 
 #  N to lb = 0.22480894244319
 #  cm to in = 0.3937008
@@ -189,3 +186,23 @@ print()
 # than the rated static diameter on Hoosiers site.
 
 # https://www.hoosiertire.com/contingency_rates/fsae/ ---- data from hoosier on tire rates
+
+
+'''
+this graph should sum up what I am trying to say. The blue line is the vertical loads in the 10 psi range of data.
+The orange line is the loaded radii, both plotted against # elements in the x direction. So the tire rate is the
+quotient of the two points on any given vertical line of this graph. 
+
+However, what we are doing is taking the min and max values for load.....so basically we are finding the average
+spring rate over the entire range of loads (makes sense if you look at the value in the middle of the y axis of
+this graph)
+
+Hoosier is agreeing with our data in that you can have a wide range of Fz loads but it does not affect our
+pressure too much. We too have Fz loads from about 100 all the way up to 1000 N and it is still in the
+10 psi range. Therefore we need to sort the data over a range of Fz's, then do the same calc we just did originally.
+
+Then maybe we can make three plots. One for each vertical load vs deflection. Using that we can make a surface plot
+where taking the gradient at any point of interest will yeild a tire rate for a given input of 
+pressure and vertical load!
+'''
+
