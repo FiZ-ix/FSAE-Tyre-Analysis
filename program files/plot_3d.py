@@ -88,11 +88,10 @@ ax1.scatter3D(slipAngle[Z3],lateralForce[Z3],verticalLoad[Z3],marker = 'x',linew
 ax1.scatter3D(slipAngle[Z4],lateralForce[Z4],verticalLoad[Z4],marker = 'x',linewidths=0.08,color = 'mediumpurple')
 ax1.scatter3D(slipAngle[Z5],lateralForce[Z5],verticalLoad[Z5],marker = 'x',linewidths=0.08,color = 'plum')
 
-ax1.plot(x1, poly1(x1),verticalLoad[Z1], c='lime', label=labelAvgZ1)
-ax1.plot(x2, poly2(x2),verticalLoad[Z2], c='lime', label=labelAvgZ1)
-ax1.plot(x3, poly3(x3),verticalLoad[Z3], c='lime', label=labelAvgZ1)
-ax1.plot(x4, poly4(x4),verticalLoad[Z4], c='lime', label=labelAvgZ1)
-ax1.plot(x5, poly5(x5),verticalLoad[Z5], c='lime', label=labelAvgZ1)
+ax1.plot(x1, poly1(x1), c='lime', label=labelAvgZ1)
+ax1.plot(x2, poly2(x2), c='lime', label=labelAvgZ1)
+ax1.plot(x4, poly4(x4), c='lime', label=labelAvgZ1)
+ax1.plot(x5, poly5(x5), c='lime', label=labelAvgZ1)
 
 ax1.set_xlabel('Slip Angle')
 ax1.set_ylabel('Lateral Force')
