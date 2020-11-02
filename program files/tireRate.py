@@ -27,12 +27,13 @@ df = pd.DataFrame(data)
 #print(data.head())
 #print(data.tail())
 
+#-----------------------------------------------------------------------------------------------------------------------
 
-pressure=df["P"] # kPa
-camber=df["IA"] # deg
-slipAngle = df["SA"] # deg
+pressure=df["P"]  # kPa
+camber=df["IA"]  # deg
+slipAngle = df["SA"]  # deg
+loadedRadius = df["RL"]  # Nm
 verticalLoad = df["FZ"] * -1  # N
-loadedRadius = df["RL"] # Nm
 
 slipAngle = np.array(slipAngle)
 camber = np.array(camber)
@@ -172,6 +173,8 @@ print(str(tireRate_10psi_camber * 0.5710147) + ' lb/in at 10psi, and small cambe
 print(str(tireRate_12psi_camber * 0.5710147) + ' lb/in at 12psi, and small camber')
 print(str(tireRate_14psi_camber * 0.5710147) + ' lb/in at 14psi, and small camber\n')
 
+print()
+print()
 
 #  N to lb = 0.22480894244319
 #  cm to in = 0.3937008
@@ -182,7 +185,7 @@ print(str(tireRate_14psi_camber * 0.5710147) + ' lb/in at 14psi, and small cambe
 # in the future it will be useful to map these to a function of heat as well
 
 # it is also important to realize that speed is a function of the tire rate as well. Spring rate increases with speed,
-# since centrifugal force is spreading the tire out (one of the reasons that the tire radius in the data is larger)
+# since centrifugal force is spreading the tire out (one of the reasons that the tire radius in the data is larger
 # than the rated static diameter on Hoosiers site.
 
 # https://www.hoosiertire.com/contingency_rates/fsae/ ---- data from hoosier on tire rates

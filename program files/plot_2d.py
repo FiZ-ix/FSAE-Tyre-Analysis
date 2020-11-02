@@ -183,6 +183,7 @@ plt.grid()
 SECTION 6
 sectioning the Fz ranges and plotting them
 '''
+
 # range returned is the row number, not the value
 Z1 = np.where(np.logical_and(verticalLoad>= 0, verticalLoad<=320))
 Z2 = np.where(np.logical_and(verticalLoad>= 320, verticalLoad<=550))
